@@ -17,7 +17,7 @@ const insertBreak = (state, dispatch) => {
 };
 
 const keymap = {
-  "Ctrl-8": wrapInList(schema.nodes.bullet_list),
+  "Ctrl-l": wrapInList(schema.nodes.bullet_list),
   "Ctrl-b": toggleMark(schema.marks.strong),
   "Ctrl-i": toggleMark(schema.marks.em),
   "Ctrl-Shift-.": wrapIn(schema.nodes.blockquote),
