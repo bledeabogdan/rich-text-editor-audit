@@ -2,15 +2,20 @@
   import { EditorState } from "prosemirror-state";
   import Toolbar from "./Toolbar.svelte";
   import { EditorView } from "prosemirror-view";
+  import { Node } from "prosemirror-model";
   import { onMount } from "svelte";
   import { plugins } from "../prosemirror/plugins";
   import { schema } from "../prosemirror/schema";
   import { toggleMark, wrapIn } from "prosemirror-commands";
   import { wrapInList } from "prosemirror-schema-list";
+  import { sample } from "./sample";
 
   let editorRef: HTMLDivElement = undefined;
-
-  const state = EditorState.create({ schema, plugins });
+  const state = EditorState.create({
+    doc: Node.fromJSON(schema, sample),
+    schema,
+    plugins,
+  });
   let view: EditorView;
 
   function handleBold() {
@@ -59,7 +64,6 @@
 
   function handleSave() {
     console.log(view.state.doc.toJSON());
-    console.log(view.state.doc.toString());
   }
 </script>
 
@@ -72,12 +76,12 @@
   on:link={handleAddLink}
   on:save={handleSave}
 />
-<button on:click={handleSave}>Save</button>
-<div bind:this={editorRef} id="editor" style:margin-top="15px" />
+<div bind:this={editorRef} id="editor" />
 
 <style>
-  div {
-    min-height: 100vh;
+  div#editor {
+    box-sizing: border-box;
+    margin-top: 50px;
     width: 100%;
   }
 </style>
