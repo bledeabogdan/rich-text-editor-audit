@@ -1,12 +1,12 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import Bold from "./icons/Bold.svelte";
-  import BulletedList from "./icons/BulletedList.svelte";
-  import Color from "./icons/Color.svelte";
-  import Italic from "./icons/Italic.svelte";
-  import Link from "./icons/Link.svelte";
-  import Quote from "./icons/Quote.svelte";
-  import Save from "./icons/Save.svelte";
+  import Bold from "../../../packages/icons/Bold.svelte";
+  import BulletedList from "../../../packages/icons/BulletedList.svelte";
+  import Color from "../../../packages/icons/Color.svelte";
+  import Italic from "../../../packages/icons/Italic.svelte";
+  import Link from "../../../packages/icons/Link.svelte";
+  import Quote from "../../../packages/icons/Quote.svelte";
+  import Save from "../../../packages/icons/Save.svelte";
 
   const dispatch = createEventDispatcher();
 
