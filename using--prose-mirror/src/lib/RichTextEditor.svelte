@@ -61,7 +61,7 @@
   on:color={handleColorSelect}
   on:link={handleAddLink}
 />
-<div bind:this={editorRef} id="editor" />
+<div bind:this={editorRef} id="editor" style:margin-top="50px" />
 
 <style>
   div {

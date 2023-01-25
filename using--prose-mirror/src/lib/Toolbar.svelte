@@ -42,7 +42,7 @@
   }
 </script>
 
-<div style:text-align="center" id="toolbar">
+<div id="toolbar">
   <button class="action" on:click={handleBoldClick} title="Toggle bold">
     <Bold />
   </button>
@@ -68,15 +68,20 @@
 </div>
 
 <style>
+  div {
+    position: fixed;
+    background: white;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0;
+    top: 0;
+  }
+
   button.action {
     background: transparent;
     box-sizing: border-box;
     border: unset;
     cursor: pointer;
     border-radius: 4px;
-  }
-
-  dialog {
-    z-index: 8;
   }
 </style>

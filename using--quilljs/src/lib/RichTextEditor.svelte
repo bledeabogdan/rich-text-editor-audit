@@ -23,4 +23,4 @@
 </script>
 
 <Toolbar />
-<div bind:this={editor} />
+<div bind:this={editor} style:margin-top="30px" />
