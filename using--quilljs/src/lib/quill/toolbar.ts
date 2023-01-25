@@ -1,4 +1,4 @@
-export const toolbarOptions = {
+export const toolbar = {
   container: "#toolbar",
   handlers: {
     link: function (value) {

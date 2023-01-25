@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import { toolbarOptions } from "./quill/toolbar-options";
+  import { bindings } from "./quill/bindings";
+  import { toolbar } from "./quill/toolbar";
   import Toolbar from "./Toolbar.svelte";
 
   let editor;
@@ -12,7 +13,10 @@
 
     quill = new Quill(editor, {
       modules: {
-        toolbar: toolbarOptions,
+        toolbar,
+        keyboard: {
+          bindings,
+        },
       },
     });
   });
