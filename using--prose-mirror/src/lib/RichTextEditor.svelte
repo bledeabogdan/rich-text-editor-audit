@@ -1,51 +1,74 @@
 <script lang="ts">
-  import { Schema } from "prosemirror-model";
   import { EditorState } from "prosemirror-state";
+  import Toolbar from "./Toolbar.svelte";
   import { EditorView } from "prosemirror-view";
   import { onMount } from "svelte";
+  import { plugins } from "../prosemirror/plugins";
+  import { schema } from "../prosemirror/schema";
+  import { toggleMark } from "prosemirror-commands";
+  import { wrapInList } from "prosemirror-schema-list";
 
-  let ref: HTMLDivElement = undefined;
+  let editorRef: HTMLDivElement = undefined;
 
-  const schema = new Schema({
-    nodes: {
-      doc: { content: "block+" },
-      paragraph: { group: "block", content: "text*", marks: "_" },
-      heading: { group: "block", content: "text*", marks: "" },
-      text: { inline: true },
-    },
-    marks: {
-      strong: {},
-      em: {},
-    },
-  });
-
-  let state = EditorState.create({ schema });
+  const state = EditorState.create({ schema, plugins });
   let view: EditorView;
 
+  function handleBold() {
+    toggleMark(schema.marks["strong"])(view.state, view.dispatch);
+  }
+
+  function handleItalic() {
+    toggleMark(schema.marks["em"])(view.state, view.dispatch);
+  }
+
+  function handleBulletedList() {
+    wrapInList(schema.nodes.bullet_list)(view.state, view.dispatch);
+  }
+
+  function handleAddLink(event) {
+    const { url: href, title } = event.detail;
+
+    toggleMark(schema.marks["link"], { href, title })(
+      view.state,
+      view.dispatch
+    );
+  }
+
+  function handleColorSelect() {
+    toggleMark(schema.marks["color"], { color: "red" })(
+      view.state,
+      view.dispatch
+    );
+  }
+
   onMount(() => {
-    if (ref) {
-      view = new EditorView(ref, {
-        state,
-        dispatchTransaction(transaction) {
-          console.log(
-            "Document size went from",
-            transaction.before.content.size,
-            "to",
-            transaction.doc.content.size
-          );
-          let newState = view.state.apply(transaction);
-          view.updateState(newState);
-        },
-      });
-    }
+    view = new EditorView(document.querySelector("#editor"), {
+      state,
+      dispatchTransaction(transaction) {
+        let newState = view.state.apply(transaction);
+
+        view.updateState(newState);
+
+        if (editorRef) {
+          editorRef.focus();
+        }
+      },
+    });
   });
 </script>
 
-<div bind:this={ref}>Text editor</div>
+<Toolbar
+  on:bold={handleBold}
+  on:italic={handleItalic}
+  on:bulleted-list={handleBulletedList}
+  on:color={handleColorSelect}
+  on:link={handleAddLink}
+/>
+<div bind:this={editorRef} id="editor" />
 
 <style>
   div {
-    height: 100vh;
+    height: 90vh;
     width: 100%;
   }
 </style>
