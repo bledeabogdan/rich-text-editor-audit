@@ -31,7 +31,6 @@ export const marksBasic = {
   link: {
     attrs: {
       href: {},
-      title: { default: null },
     },
     inclusive: false,
     editable: false,
@@ -41,14 +40,13 @@ export const marksBasic = {
         getAttrs(dom) {
           return {
             href: dom.getAttribute("href"),
-            title: dom.getAttribute("title"),
           };
         },
       },
     ],
     toDOM(node) {
-      const { href, title } = node.attrs;
-      return ["a", { href, title }, 0];
+      const { href } = node.attrs;
+      return ["a", { href }, 0];
     },
   },
 

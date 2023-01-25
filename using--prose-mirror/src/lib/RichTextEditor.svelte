@@ -26,12 +26,9 @@
   }
 
   function handleAddLink(event) {
-    const { url: href, title } = event.detail;
+    const { href } = event.detail;
 
-    toggleMark(schema.marks["link"], { href, title })(
-      view.state,
-      view.dispatch
-    );
+    toggleMark(schema.marks["link"], { href })(view.state, view.dispatch);
   }
 
   function handleColorSelect() {

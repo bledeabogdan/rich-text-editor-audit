@@ -32,21 +32,13 @@
   }
 
   function handleLinkClick() {
-    open = !open;
+    const href = prompt("Href:");
+
+    dispatch("link", { href });
   }
 
   function handleColorSelect() {
     dispatch("color");
-  }
-
-  function handleCancelDialog() {
-    open = false;
-    link = { title: "", url: "" };
-  }
-
-  function handleAddLink() {
-    dispatch("link", { ...link });
-    handleCancelDialog();
   }
 </script>
 
@@ -73,15 +65,6 @@
   <button class="action" on:click={handleColorSelect} title="Toggle red color">
     <Color />
   </button>
-
-  <dialog {open}>
-    Title: <input type="text" />
-    <br />
-    Url: <input type="url" />
-    <br />
-    <button on:click={handleCancelDialog}>Cancel</button>
-    <button on:click={handleAddLink}>Add link</button>
-  </dialog>
 </div>
 
 <style>
