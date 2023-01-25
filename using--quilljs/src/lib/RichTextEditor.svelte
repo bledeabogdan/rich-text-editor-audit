@@ -1,20 +1,22 @@
 <script>
   import { onMount } from "svelte";
+  import { toolbarOptions } from "./quill/toolbar-options";
+  import Toolbar from "./Toolbar.svelte";
 
   let editor;
+
+  let quill;
 
   onMount(async () => {
     const { default: Quill } = await import("quill");
 
-    new Quill(editor, {
-      theme: "bubble",
-      placeholder: "Write your story...",
+    quill = new Quill(editor, {
+      modules: {
+        toolbar: toolbarOptions,
+      },
     });
   });
 </script>
 
+<Toolbar />
 <div bind:this={editor} />
-
-<style>
-  @import "https://cdn.quilljs.com/1.3.6/quill.bubble.css";
-</style>
