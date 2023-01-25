@@ -6,14 +6,9 @@
   import Italic from "./icons/Italic.svelte";
   import Link from "./icons/Link.svelte";
   import Quote from "./icons/Quote.svelte";
+  import Save from "./icons/Save.svelte";
 
   const dispatch = createEventDispatcher();
-
-  let open: boolean = false;
-  let link = {
-    title: "",
-    url: "",
-  };
 
   function handleBoldClick() {
     dispatch("bold");
@@ -40,29 +35,32 @@
   function handleColorSelect() {
     dispatch("color");
   }
+
+  function handleSave() {
+    dispatch("save");
+  }
 </script>
 
 <div id="toolbar">
-  <button class="action" on:click={handleBoldClick} title="Toggle bold">
+  <button on:click={handleSave} title="Save">
+    <Save />
+  </button>
+  <button on:click={handleBoldClick} title="Toggle bold">
     <Bold />
   </button>
-  <button class="action" on:click={handleItalicClick} title="Toggle italic">
+  <button on:click={handleItalicClick} title="Toggle italic">
     <Italic />
   </button>
-  <button
-    class="action"
-    on:click={handleBulletedListClick}
-    title="Toggle bullet list"
-  >
+  <button on:click={handleBulletedListClick} title="Toggle bullet list">
     <BulletedList />
   </button>
-  <button class="action" on:click={handleQuoteClick} title="Toggle quote">
+  <button on:click={handleQuoteClick} title="Toggle quote">
     <Quote />
   </button>
-  <button class="action" on:click={handleLinkClick} title="Add link">
+  <button on:click={handleLinkClick} title="Add link">
     <Link />
   </button>
-  <button class="action" on:click={handleColorSelect} title="Toggle red color">
+  <button on:click={handleColorSelect} title="Toggle red color">
     <Color />
   </button>
 </div>
@@ -75,9 +73,10 @@
     box-sizing: border-box;
     padding: 8px 0;
     top: 0;
+    z-index: 8;
   }
 
-  button.action {
+  button {
     background: transparent;
     box-sizing: border-box;
     border: unset;

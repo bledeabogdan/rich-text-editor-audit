@@ -5,7 +5,7 @@
   import { onMount } from "svelte";
   import { plugins } from "../prosemirror/plugins";
   import { schema } from "../prosemirror/schema";
-  import { toggleMark } from "prosemirror-commands";
+  import { toggleMark, wrapIn } from "prosemirror-commands";
   import { wrapInList } from "prosemirror-schema-list";
 
   let editorRef: HTMLDivElement = undefined;
@@ -31,6 +31,10 @@
     toggleMark(schema.marks["link"], { href })(view.state, view.dispatch);
   }
 
+  function handleQuote() {
+    wrapIn(schema.nodes.blockquote)(view.state, view.dispatch);
+  }
+
   function handleColorSelect() {
     toggleMark(schema.marks["color"], { color: "red" })(
       view.state,
@@ -52,20 +56,28 @@
       },
     });
   });
+
+  function handleSave() {
+    console.log(view.state.doc.toJSON());
+    console.log(view.state.doc.toString());
+  }
 </script>
 
 <Toolbar
   on:bold={handleBold}
   on:italic={handleItalic}
   on:bulleted-list={handleBulletedList}
+  on:quote={handleQuote}
   on:color={handleColorSelect}
   on:link={handleAddLink}
+  on:save={handleSave}
 />
-<div bind:this={editorRef} id="editor" style:margin-top="50px" />
+<button on:click={handleSave}>Save</button>
+<div bind:this={editorRef} id="editor" style:margin-top="15px" />
 
 <style>
   div {
-    height: 90vh;
+    min-height: 100vh;
     width: 100%;
   }
 </style>
