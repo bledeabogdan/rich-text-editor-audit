@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import Bold from "../../../packages/icons/Bold.svelte";
   import BulletedList from "../../../packages/icons/BulletedList.svelte";
   import Color from "../../../packages/icons/Color.svelte";
@@ -6,10 +7,16 @@
   import Link from "../../../packages/icons/Link.svelte";
   import Quote from "../../../packages/icons/Quote.svelte";
   import Save from "../../../packages/icons/Save.svelte";
+
+  const dispatch = createEventDispatcher();
+
+  function handleSave() {
+    dispatch("save");
+  }
 </script>
 
-<div style:text-align="center" id="toolbar">
-  <button class="ql-bold" title="Toggle bold">
+<div id="toolbar">
+  <button title="Save" on:click={handleSave}>
     <Save />
   </button>
   <button class="ql-bold" title="Toggle bold">
@@ -33,6 +40,16 @@
 </div>
 
 <style>
+  div {
+    position: fixed;
+    background: white;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0;
+    top: 0;
+    z-index: 8;
+  }
+
   button {
     background: transparent;
     box-sizing: border-box;
