@@ -62,8 +62,28 @@
     });
   });
 
-  function handleSave() {
-    console.log(view.state.doc.toJSON());
+  function handleCopy() {
+    if (!view.state.selection.empty) {
+      const selection = view.state.selection;
+      const selectionText = view.state.selection
+        .content()
+        .content.textBetween(selection.from, selection.to);
+
+      navigator.clipboard.writeText(selectionText);
+    }
+  }
+
+  function handleCut() {
+    if (!view.state.selection.empty) {
+      const selection = view.state.selection;
+      const selectionText = view.state.selection
+        .content()
+        .content.textBetween(selection.from, selection.to);
+
+      navigator.clipboard.writeText(selectionText);
+
+      view.dispatch(view.state.tr.deleteSelection());
+    }
   }
 </script>
 
@@ -74,7 +94,8 @@
   on:quote={handleQuote}
   on:color={handleColorSelect}
   on:link={handleAddLink}
-  on:save={handleSave}
+  on:copy={handleCopy}
+  on:cut={handleCut}
 />
 <div bind:this={editorRef} id="editor" />
 

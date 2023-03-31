@@ -39,6 +39,14 @@
   function handleSave() {
     dispatch("save");
   }
+
+  function handleCopy() {
+    dispatch("copy");
+  }
+
+  function handleCut() {
+    dispatch("cut");
+  }
 </script>
 
 <div id="toolbar">
@@ -63,6 +71,8 @@
   <button on:click={handleColorSelect} title="Toggle red color">
     <Color />
   </button>
+  <button on:click={handleCopy} title="Copy"> Copy </button>
+  <button on:click={handleCut} title="Copy"> Cut </button>
 </div>
 
 <style>
